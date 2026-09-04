@@ -6,6 +6,8 @@ import { KnowledgeBase } from './pages/KnowledgeBase'
 import { Article } from './pages/Article'
 import { useConsultStorage } from './hooks/useConsultStorage'
 
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '')
+
 function AppRoutes() {
   const { resetConsult } = useConsultStorage()
 
@@ -16,7 +18,7 @@ function AppRoutes() {
       )
     ) {
       resetConsult()
-      window.location.href = '/'
+      window.location.href = import.meta.env.BASE_URL
     }
   }
 
@@ -34,7 +36,7 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <AppRoutes />
     </BrowserRouter>
   )
