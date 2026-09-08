@@ -1,17 +1,14 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Search, Tag } from 'lucide-react'
-import { kbArticles, searchArticles } from '../data/kbArticles'
+import { Pin, Search, Tag } from 'lucide-react'
+import { getKbFilterTags, pinnedTags, searchArticles } from '../data/kbArticles'
 
 export function KnowledgeBase() {
   const [query, setQuery] = useState('')
   const [activeTag, setActiveTag] = useState<string | null>(null)
 
-  const allTags = useMemo(() => {
-    const set = new Set<string>()
-    kbArticles.forEach((a) => a.tags.forEach((t) => set.add(t)))
-    return Array.from(set).sort()
-  }, [])
+  const allTags = useMemo(() => getKbFilterTags(), [])
+  const pinnedTagSet = useMemo(() => new Set<string>(pinnedTags), [])
 
   const results = useMemo(() => {
     let list = searchArticles(query)
@@ -36,7 +33,7 @@ export function KnowledgeBase() {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search articles, tags, topics… (e.g. ESRD, Medigap, AEP, MSN)"
+          placeholder="Search articles, tags, topics… (e.g. MA plan types, ESRD, Medigap, AEP)"
           className="w-full rounded-2xl border-2 border-slate-200 bg-white py-4 pl-12 pr-4 text-base shadow-sm outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-100"
         />
       </div>
@@ -54,22 +51,32 @@ export function KnowledgeBase() {
         >
           All tags
         </button>
-        {allTags.map((tag) => (
-          <button
-            key={tag}
-            type="button"
-            onClick={() => setActiveTag(tag === activeTag ? null : tag)}
-            className={[
-              'inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-semibold transition',
-              activeTag === tag
-                ? 'bg-brand-700 text-white'
-                : 'bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50',
-            ].join(' ')}
-          >
-            <Tag className="h-3.5 w-3.5" />
-            {tag}
-          </button>
-        ))}
+        {allTags.map((tag) => {
+          const isPinned = pinnedTagSet.has(tag)
+          const isActive = activeTag === tag
+          return (
+            <button
+              key={tag}
+              type="button"
+              onClick={() => setActiveTag(tag === activeTag ? null : tag)}
+              className={[
+                'inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-semibold transition',
+                isActive
+                  ? 'bg-brand-700 text-white'
+                  : isPinned
+                    ? 'bg-brand-50 text-brand-800 ring-1 ring-brand-300 hover:bg-brand-100'
+                    : 'bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50',
+              ].join(' ')}
+            >
+              {isPinned ? (
+                <Pin className="h-3.5 w-3.5" />
+              ) : (
+                <Tag className="h-3.5 w-3.5" />
+              )}
+              {tag}
+            </button>
+          )
+        })}
       </div>
 
       <p className="text-sm text-slate-500">

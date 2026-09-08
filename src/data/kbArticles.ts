@@ -1,5 +1,19 @@
 import type { KbArticle } from '../types'
 
+/** Filter chips shown first on the Knowledge base page (mid-sitting tabs). */
+export const pinnedTags = ['MA plan types'] as const
+
+export function getKbFilterTags(): string[] {
+  const set = new Set<string>()
+  kbArticles.forEach((a) => a.tags.forEach((t) => set.add(t)))
+  const pinnedSet = new Set<string>(pinnedTags)
+  const pinned = pinnedTags.filter((t) => set.has(t))
+  const rest = Array.from(set)
+    .filter((t) => !pinnedSet.has(t))
+    .sort((a, b) => a.localeCompare(b))
+  return [...pinned, ...rest]
+}
+
 export const kbArticles: KbArticle[] = [
   {
     id: 'medicare-basics',
@@ -13,7 +27,7 @@ export const kbArticles: KbArticle[] = [
       'Part D is outpatient prescription drug coverage. It is not included in Medigap. Clients on Original Medicare + Medigap typically need a standalone PDP. MA members usually get drugs through the MA-PD plan.',
       'Medigap (Medicare Supplement) helps pay Part A/B cost-sharing. Sold by private carriers, standardized by letter plan in most states (including Texas). Medigap does not cover Rx — pair with Part D.',
     ],
-    relatedIds: ['medigap-vs-ma', 'part-d-basics'],
+    relatedIds: ['medigap-vs-ma', 'ma-plan-types', 'part-d-basics'],
   },
   {
     id: 'medigap-vs-ma',
@@ -22,11 +36,33 @@ export const kbArticles: KbArticle[] = [
     tags: ['medigap', 'advantage', 'comparison', 'network', 'travel'],
     body: [
       'Original Medicare + Medigap + Part D: Broad provider access (any provider accepting Medicare/assignment for A/B). Medigap can make cost-sharing predictable. Travel within the U.S. is generally easier. Tradeoff: higher combined premiums (Part B + Medigap + PDP) and fewer “extras.”',
-      'Medicare Advantage: Often $0 or low plan premium (Part B premium still due). May include dental/vision/hearing and drug coverage in one card. Tradeoff: network (HMO/PPO), referrals/prior auth, and annual max OOP that can still be significant.',
+      'Medicare Advantage: Often $0 or low plan premium (Part B premium still due). May include dental/vision/hearing and drug coverage in one card. Tradeoff: network (HMO/PPO), referrals/prior auth, and annual max OOP that can still be significant. MA must still cover Part A and B services (basic benefits) — the plan type (HMO, PPO, PFFS, MSA) changes how the client uses those benefits.',
       'Key agent questions: Do preferred doctors/hospitals participate? Is travel or snowbird status important? Does the client value predictable OOP vs lower monthly premium? Any ESRD, dual, or employer coverage complications?',
-      'Always verify networks, formularies, and benefits in official CMS Plan Finder / carrier tools before enrollment recommendations.',
+      'Always verify networks, formularies, and benefits in official CMS Plan Finder / carrier tools before enrollment recommendations. For HMO vs PPO vs less-common PFFS/MSA talking points, open the MA plan types article.',
     ],
-    relatedIds: ['medicare-basics', 'hood-county-context', 'enrollment-periods'],
+    relatedIds: ['medicare-basics', 'ma-plan-types', 'hood-county-context', 'enrollment-periods'],
+  },
+  {
+    id: 'ma-plan-types',
+    title: 'Medicare Advantage Plan Types — HMO, PPO, PFFS, MSA',
+    summary:
+      'Sit-down map of MA plan types: coordinated care (HMO/POS, PPO), Private Fee-for-Service, and Medical Savings Accounts.',
+    tags: ['MA plan types', 'advantage', 'network'],
+    body: [
+      'Medicare Advantage (Part C) is a private-plan way to receive Medicare. By rule, MA plans must cover the Part A and Part B services CMS treats as “basic benefits” — hospital, medical, and other Original Medicare–covered care. Cost-sharing, networks, referrals, and prior authorization can differ from Original Medicare. Most MA plans also include Part D drugs; extras such as dental, vision, or hearing are optional, not basic benefits. This desk is educational decision-support for in-person consults — not CMS-approved marketing. Do not quote premiums or named Hood County plans from memory; verify the current plan year in official tools.',
+      'The types of Medicare Advantage plans you will walk through at the table are: Coordinated Care Plans (a network of preferred providers — mainly HMOs and PPOs), Private Fee-for-Service (PFFS) plans, and Medical Savings Account (MSA) plans. Start with type before shopping plan names. Availability is service-area based — confirm Hood County / ZIP first.',
+      'Coordinated Care — HMO (some with POS): HMOs use a defined network. Clients usually choose a PCP, need referrals for specialists, and have little or no coverage out-of-network except emergencies. Some HMOs add a point-of-service (POS) benefit that allows limited out-of-network use, subject to plan rules and typically higher cost-sharing. Agent prompt: “Are they comfortable staying in-network, or do they need a POS-style escape hatch for a particular doctor?”',
+      'Coordinated Care — PPO (local or regional): PPOs have a preferred network but usually allow out-of-network care at a higher cost, often without a referral. PPOs may be local (county / defined service area) or regional (multi-county or multi-state). Regional PPOs can matter for Granbury clients who see Fort Worth specialists or travel seasonally. Agent prompt: “Where do they actually get care — Hood County only, DFW referrals, or snowbird months?”',
+      'Private Fee-for-Service (PFFS): The plan sets its own payment terms. A provider may accept or decline those terms for a visit (emergencies excepted). Some PFFS plans have a network; if not, the client should confirm the doctor or hospital will accept the plan before each service. PFFS is less common in many markets — check current Hood County availability in Plan Finder rather than assuming one is offered.',
+      'Medical Savings Account (MSA): An MSA pairs a high-deductible MA plan with a medical savings account that Medicare funds. The client generally pays covered A/B services until the deductible; unused account dollars can roll forward. MSA plans typically do not include Part D — pair with a standalone PDP if they need outpatient drugs. Fit is narrow: higher-deductible tolerance and willingness to track an account. Treat as a specialist-review path, not a default recommendation.',
+      'Sit-down checklist: (1) Confirm county/ZIP — type availability follows the service area. (2) Map named doctors and the preferred hospital to HMO vs PPO before comparing brands. (3) Frequent travel or snowbird status usually argues PPO or Original + Medigap over a tight HMO. (4) Lead with coordinated care; explain PFFS/MSA if the client already has one or asks. (5) Separate the conversations: basic benefits (A/B), drugs (Part D / MA-PD), and extras. (6) Verify network, referrals, out-of-network rules, MOOP, and formulary in CMS Plan Finder and carrier materials for the correct year.',
+    ],
+    relatedIds: [
+      'medigap-vs-ma',
+      'medicare-basics',
+      'network-doctors',
+      'hood-county-context',
+    ],
   },
   {
     id: 'part-d-basics',
@@ -106,7 +142,7 @@ export const kbArticles: KbArticle[] = [
       'Plan cards in this app are clearly labeled PLACEHOLDERS — not 2026 premiums, star ratings, or networks. Replace them with carrier-approved data before any client-facing enrollment discussion.',
       'AEP begins mid-October. Use this walkthrough to structure the conversation, then verify every benefit, network, and formulary in official tools before application.',
     ],
-    relatedIds: ['medigap-vs-ma', 'enrollment-periods', 'plan-placeholders'],
+    relatedIds: ['medigap-vs-ma', 'ma-plan-types', 'enrollment-periods', 'plan-placeholders'],
   },
   {
     id: 'plan-placeholders',
@@ -130,9 +166,9 @@ export const kbArticles: KbArticle[] = [
       'Ask for PCP, key specialists, preferred hospital, and whether staying in-network is critical vs flexible.',
       'If network is critical and preferred doctors are out of many MA networks, lean Original + Medigap (+ PDP) after verifying Medigap eligibility/underwriting.',
       'If client accepts a defined network for lower premium / extras, MA may fit — but verify every named provider and facility in the plan directory for the correct year.',
-      'PPO vs HMO matters for out-of-network access and referrals. Document answers in the summary panel notes.',
+      'PPO vs HMO matters for out-of-network access and referrals. Use the MA plan types article for HMO/POS, local vs regional PPO, and the less-common PFFS and MSA talking points. Document answers in the summary panel notes.',
     ],
-    relatedIds: ['medigap-vs-ma', 'hood-county-context'],
+    relatedIds: ['medigap-vs-ma', 'ma-plan-types', 'hood-county-context'],
   },
   {
     id: 'budget-and-oop',

@@ -22,7 +22,7 @@ export const walkthroughSteps: StepDef[] = [
     id: 'providers',
     title: 'Doctors, specialists & hospital',
     subtitle: 'Capture providers and how important the network is.',
-    tipArticleIds: ['network-doctors', 'medigap-vs-ma'],
+    tipArticleIds: ['network-doctors', 'medigap-vs-ma', 'ma-plan-types'],
   },
   {
     id: 'drugs',
