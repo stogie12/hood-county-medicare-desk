@@ -139,7 +139,7 @@ export const kbArticles: KbArticle[] = [
     body: [
       'Primary market for this tool: Hood County, Texas (Granbury and surrounding communities). Confirm the client’s county of residence — MA and PDP availability is service-area based.',
       'Common local priorities: preferred primary care and specialists in Granbury / Fort Worth referral patterns, hospital preference, pharmacy (chain vs independent), and seasonal travel.',
-      'Plan cards in this app are clearly labeled PLACEHOLDERS — not 2026 premiums, star ratings, or networks. Replace them with carrier-approved data before any client-facing enrollment discussion.',
+      'Plan cards show Logan’s selling carriers (UnitedHealthcare, Humana, Aetna, Wellcare, Baylor Scott & White, Blue Cross Arkansas, SilverScript, HealthSpring) and are clearly labeled PLACEHOLDER. That roster is not a confirmation any carrier offers a plan in a given Hood County ZIP. No 2026 premiums, star ratings, or networks are loaded — paste licensed data before any client-facing enrollment discussion.',
       'AEP begins mid-October. Use this walkthrough to structure the conversation, then verify every benefit, network, and formulary in official tools before application.',
     ],
     relatedIds: ['medigap-vs-ma', 'ma-plan-types', 'enrollment-periods', 'plan-placeholders'],
@@ -150,9 +150,10 @@ export const kbArticles: KbArticle[] = [
     summary: 'Why numbers are labeled PLACEHOLDER and how to swap in real carrier data.',
     tags: ['placeholder', 'plans', 'compliance', 'hood-county'],
     body: [
-      'This app ships with illustrative Hood County plan cards marked PLACEHOLDER. They are for UI practice and conversation structure only.',
-      'Never quote placeholder premiums, MOOP, or benefits as real. Official CMS Medicare Plan Finder and carrier SOBs / EOCs are the source of truth.',
-      'To update: edit src/data/planPlaceholders.ts with carrier name, plan name, type, and clearly still-labeled fields until compliance review approves client-facing use — or remove cards until real data is loaded.',
+      'Cards on Home and the walkthrough summary are keyed to Logan’s selling carriers: UnitedHealthcare, Humana, Aetna, Wellcare, Baylor Scott & White, Blue Cross Arkansas, SilverScript, and HealthSpring. Each row is marked PLACEHOLDER. The names are a roster for sit-down structure — not a claim that any carrier is offered in a specific Hood County ZIP.',
+      'Product-type lines are generic family hints only (SilverScript is typically PDP / Part D; the others are typically MA and/or PDP). They are labeled “typical product family — verify for Hood County 2026.” Do not treat them as confirmed local 2026 offers.',
+      'Never quote placeholder premiums, MOOP, star ratings, or benefits as real. Official CMS Medicare Plan Finder and carrier SOBs / EOCs are the source of truth.',
+      'To update: edit src/data/plans.ts (re-exported from src/data/planPlaceholders.ts) with licensed 2026 plan name, type, premium, MOOP, and benefits — keep PLACEHOLDER labels until compliance review approves client-facing use.',
       'Compliance posture: educational agent decision-support; not CMS-approved marketing material.',
     ],
     relatedIds: ['hood-county-context', 'medigap-vs-ma'],

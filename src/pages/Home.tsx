@@ -72,14 +72,16 @@ export function Home() {
           <ShieldCheck className="mt-0.5 h-5 w-5 text-amber-700" />
           <div>
             <h2 className="text-lg font-bold text-amber-950">
-              Hood County plan cards — PLACEHOLDER
+              Selling carriers — PLACEHOLDER cards
             </h2>
             <p className="mt-1 text-sm text-amber-900/90">
-              Illustrative only. Replace via{' '}
+              Logan’s roster for sit-down structure only. Not confirmed Hood County /
+              ZIP offers. Replace via{' '}
               <code className="rounded bg-white px-1.5 py-0.5 text-xs">
-                src/data/planPlaceholders.ts
+                src/data/plans.ts
               </code>{' '}
-              after compliance review. Never quote these as real 2026 premiums.
+              with licensed 2026 data. Never quote placeholder premiums, MOOP, stars, or
+              benefits.
             </p>
           </div>
         </div>
@@ -92,8 +94,11 @@ export function Home() {
               <div className="text-[10px] font-bold uppercase tracking-wider text-amber-700">
                 PLACEHOLDER · {p.planType}
               </div>
-              <div className="mt-1 text-sm font-bold text-slate-900">{p.planName}</div>
-              <div className="text-xs text-slate-500">{p.carrier}</div>
+              <div className="mt-1 text-sm font-bold text-slate-900">{p.carrier}</div>
+              <div className="text-xs text-slate-500">{p.planName}</div>
+              <div className="mt-2 text-[11px] font-medium leading-snug text-amber-900">
+                {p.typicalProductFamily}
+              </div>
               <div className="mt-2 text-sm font-semibold text-slate-800">
                 {p.premiumMonthly}
               </div>
