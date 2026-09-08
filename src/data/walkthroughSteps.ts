@@ -10,7 +10,7 @@ export const walkthroughSteps: StepDef[] = [
     id: 'coverage',
     title: 'Current coverage',
     subtitle: 'What does the client have today?',
-    tipArticleIds: ['medicare-basics', 'medigap-vs-ma'],
+    tipArticleIds: ['medicare-basics', 'medigap-vs-ma', 'medicare-acronyms'],
   },
   {
     id: 'county',

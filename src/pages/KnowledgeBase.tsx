@@ -33,7 +33,7 @@ export function KnowledgeBase() {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search articles, tags, topics… (e.g. MA plan types, ESRD, Medigap, AEP)"
+          placeholder="Search articles, tags, topics… (e.g. Acronyms, MA plan types, D-SNP, AEP)"
           className="w-full rounded-2xl border-2 border-slate-200 bg-white py-4 pl-12 pr-4 text-base shadow-sm outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-100"
         />
       </div>
