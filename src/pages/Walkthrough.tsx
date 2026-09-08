@@ -498,7 +498,7 @@ export function Walkthrough() {
 
               <div>
                 <h3 className="text-sm font-bold uppercase tracking-wide text-slate-500">
-                  Hood County PLACEHOLDER plan cards
+                  Selling-carrier PLACEHOLDER cards — availability not confirmed
                 </h3>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   {planPlaceholders.map((p) => (
@@ -509,8 +509,11 @@ export function Walkthrough() {
                       <div className="text-[10px] font-bold uppercase text-amber-700">
                         PLACEHOLDER · {p.planType}
                       </div>
-                      <div className="mt-1 font-bold text-slate-900">{p.planName}</div>
-                      <div className="text-xs text-slate-500">{p.carrier}</div>
+                      <div className="mt-1 font-bold text-slate-900">{p.carrier}</div>
+                      <div className="text-xs text-slate-500">{p.planName}</div>
+                      <div className="mt-1 text-[11px] font-medium text-amber-900">
+                        {p.typicalProductFamily}
+                      </div>
                       <div className="mt-2 text-sm font-semibold">{p.premiumMonthly}</div>
                       <ul className="mt-2 space-y-1 text-xs text-slate-600">
                         {p.highlights.map((h) => (

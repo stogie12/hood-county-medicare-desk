@@ -56,11 +56,15 @@ export interface KbArticle {
   relatedIds?: string[]
 }
 
+export type PlaceholderPlanType = 'MA' | 'MA/PDP' | 'MA-HMO' | 'MA-PPO' | 'PDP' | 'Medigap'
+
 export interface PlanPlaceholder {
   id: string
   carrier: string
   planName: string
-  planType: 'MA-HMO' | 'MA-PPO' | 'PDP' | 'Medigap'
+  planType: PlaceholderPlanType
+  /** Generic family hint only — not a confirmed Hood County 2026 offer. */
+  typicalProductFamily: string
   county: string
   premiumMonthly: string
   maxOop: string
